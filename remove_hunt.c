@@ -52,6 +52,16 @@ int main(int argc, char **argv)
     }
     //
 
+    // Stergerea legaturi simbolice
+    char link[64];
+    snprintf(link, sizeof(link), "./logged_hunt-%s", argv[1]);
+    if(remove(link))
+    {
+        perror("Eroare la stergerea legaturii simbolice");
+        exit(-1);
+    }
+    //
+
     printf("Hunt sters cu succes!\n");
     return 0;
 }
