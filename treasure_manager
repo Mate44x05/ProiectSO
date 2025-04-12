@@ -6,6 +6,21 @@ elif [ "$1" = "--list" ]
 then
     gcc -o run list_hunt.c
     ./run $2
+elif [ "$1" = "--view" ]
+then
+    gcc -o run view_treasure.c
+    ./run $2 $3
+elif [ "$1" = "--remove" ]
+then
+    if [ $# -eq 3 ]
+    then
+        gcc -o run remove_treasure.c
+        ./run $2 $3
+    elif [ $# -eq 2 ]
+    then
+        gcc -o run remove_hunt.c
+        ./run $2
+    fi
 fi
 
 rm run
