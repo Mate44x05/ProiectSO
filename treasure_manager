@@ -1,26 +1,28 @@
-if [ "$1" = "--add" ]
-then
-    gcc -o run add_treasure.c
-    ./run $2
-elif [ "$1" = "--list" ]
-then
-    gcc -o run list_hunt.c
-    ./run $2
-elif [ "$1" = "--view" ]
-then
-    gcc -o run view_treasure.c
-    ./run $2 $3
-elif [ "$1" = "--remove" ]
-then
-    if [ $# -eq 3 ]
-    then
-        gcc -o run remove_treasure.c
-        ./run $2 $3
-    elif [ $# -eq 2 ]
-    then
-        gcc -o run remove_hunt.c
-        ./run $2
-    fi
-fi
+#!/bin/bash
 
-rm run
+case "$1" in
+    --add)
+        gcc -o run add_treasure.c
+        ./run "$2"
+        ;;
+    --list)
+        gcc -o run list_hunt.c
+        ./run "$2"
+        ;;
+    --view)
+        gcc -o run view_treasure.c
+        ./run "$2" "$3"
+        ;;
+    --remove)
+        if [ $# -eq 3 ]; then
+            gcc -o run remove_treasure.c
+            ./run "$2" "$3"
+        elif [ $# -eq 2 ]; then
+            gcc -o run remove_hunt.c
+            ./run "$2"
+        fi
+        ;;
+    *)
+        echo "Comandă necunoscută."
+        ;;
+esac

@@ -5,12 +5,13 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <time.h>
+#include <errno.h>
 #include "treasure.h"
 
 int main(int argc, char **argv)
 {
     if (argc != 2) {
-        perror("Numărul de argumente este incorect.\n");
+        perror("Numărul de argumente este incorect\n");
         exit(-1);
     }
 
@@ -47,9 +48,19 @@ int main(int argc, char **argv)
     t.user[strcspn(t.user, "\n")] = '\0';
     printf("Latitude: ");
     scanf("%f", &t.latitude);
+    if (t.latitude < -90 || t.latitude > 90) 
+    {
+        perror("Latitudine invalida\n");
+        exit(-1);
+    }
     while ((ch = getchar()) != '\n' && ch != EOF);
     printf("Longitude: ");
     scanf("%f", &t.longitude);
+    if (t.longitude < -180 || t.longitude > 180) 
+    {
+        perror("Longitudine invalida\n");
+        exit(-1);
+    }
     while ((ch = getchar()) != '\n' && ch != EOF);
     printf("Clue: ");
     fgets(t.clue, sizeof(t.clue), stdin);
@@ -61,19 +72,16 @@ int main(int argc, char **argv)
 
     // Crearea/deschiderea fisierului pentru treasure-ul adaugat
     char aux[10];
-    strcpy(aux,"modificat");
     char name[128];
     snprintf(name, sizeof(name), "./%s/%s.bin", argv[1], t.id);
-    int FD = open(name, O_WRONLY | O_APPEND);
-    if(FD==-1)
+    int FD = open(name, O_WRONLY | O_CREAT | O_APPEND, 0777);
+    if (FD == -1) 
     {
-        if((FD = open(name, O_WRONLY | O_CREAT | O_APPEND, 0777)) == -1)
-        {
-            perror("Eroare la deschiderea fisierului.\n");
-            exit(-1);
-        }
-        strcpy(aux,"adaugat");
+        perror("Eroare la deschiderea fisierului.\n");
+        exit(-1);
     }
+
+    strcpy(aux, (lseek(FD, 0, SEEK_END) == 0) ? "adaugat" : "modificat");
     //
 
     ssize_t n = write(FD, &t, sizeof(t));
@@ -100,7 +108,16 @@ int main(int argc, char **argv)
         // Crearea unui link simbolic pentru fisierul de log in directorul curent
         char link[64];
         snprintf(link, sizeof(link), "./logged_hunt-%s", argv[1]);
-        symlink(log_path, link);
+        if (symlink(log_path, link) == -1) 
+        {
+            if (errno != EEXIST) 
+            {
+                perror("Eroare la crearea symlink-ului");
+                close(log);
+                close(FD);
+                exit(-1);
+            }
+        }
         //
     }
     //
