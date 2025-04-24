@@ -1,0 +1,10 @@
+#!/bin/bash
+
+gcc -o hub hub.c
+gcc -o monitor monitor.c
+ 
+./hub
+
+rm hub
+rm monitor
+rm cmd

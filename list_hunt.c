@@ -30,7 +30,7 @@ int main(int argc, char **argv)
         exit(-1);
     }
     //
-    printf("Size: %ld\n----------------------------\n", fileStat.st_size);
+    int totalSize = 0;
 //
 
 // Listam treasure-urile din director impreuna cu informatiile despre acestea
@@ -77,6 +77,7 @@ int main(int argc, char **argv)
             struct tm tm_info;
             localtime_r(&fileStat.st_mtime, &tm_info);
             strftime(time, sizeof(time), "%Y-%m-%d %H:%M:%S", &tm_info);
+            totalSize += fileStat.st_size;
             printf("Size: %ld\n", fileStat.st_size);
             printf("Last modified: %s\n", time);
             //
@@ -84,6 +85,8 @@ int main(int argc, char **argv)
     }
 
     printf("\nEnd of list\n");
+    printf("Total size: %d bytes\n", totalSize);
+    
     // Crearea/deschiderea fisierului pentru log
     char log_path[128];
     snprintf(log_path, sizeof(log_path), "./%s/logged_hunt", argv[1]);

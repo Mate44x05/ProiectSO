@@ -26,3 +26,5 @@ case "$1" in
         echo "Comandă necunoscută."
         ;;
 esac
+
+rm run
