@@ -2,6 +2,7 @@
 
 gcc -o hub hub.c
 gcc -o monitor monitor.c
+touch cmd
  
 ./hub
 

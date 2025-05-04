@@ -18,7 +18,7 @@ int main(int argc, char **argv)
     }
 
 // Tiparirea numelui hunt-ului
-    printf("Hunt name: %s\n", argv[1]);
+    printf("\n\nHunt name: %s\n", argv[1]);
 //
 
 // Tiparirea informatiilor despre director

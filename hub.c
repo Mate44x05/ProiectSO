@@ -14,13 +14,13 @@ void sigchld_handler(int signum)
 {
     waitpid(monitor_pid, NULL, 0);
     monitor_alive = 0;
-    fflush(stdout);
     printf("Monitor s-a închis cu succes.\n");
 }
 
 void start_monitor() 
 {
-    if (monitor_alive) {
+    if (monitor_alive) 
+    {
         printf("Monitor deja pornit.\n");
         return;
     }

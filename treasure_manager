@@ -2,24 +2,24 @@
 
 case "$1" in
     --add)
-        gcc -o run add_treasure.c
-        ./run "$2"
+        gcc -o manager add_treasure.c
+        ./manager "$2"
         ;;
     --list)
-        gcc -o run list_hunt.c
-        ./run "$2"
+        gcc -o manager list_hunt.c
+        ./manager "$2"
         ;;
     --view)
-        gcc -o run view_treasure.c
-        ./run "$2" "$3"
+        gcc -o manager view_treasure.c
+        ./manager "$2" "$3"
         ;;
     --remove)
         if [ $# -eq 3 ]; then
-            gcc -o run remove_treasure.c
-            ./run "$2" "$3"
+            gcc -o manager remove_treasure.c
+            ./manager "$2" "$3"
         elif [ $# -eq 2 ]; then
-            gcc -o run remove_hunt.c
-            ./run "$2"
+            gcc -o manager remove_hunt.c
+            ./manager "$2"
         fi
         ;;
     *)
@@ -27,4 +27,4 @@ case "$1" in
         ;;
 esac
 
-rm run
+rm manager
