@@ -22,6 +22,10 @@ case "$1" in
             ./manager "$2"
         fi
         ;;
+    --score)
+        gcc -o manager calculate_score.c
+        ./manager "$2"
+        ;;
     *)
         echo "Comandă necunoscută."
         ;;

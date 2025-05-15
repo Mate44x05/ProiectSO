@@ -22,9 +22,10 @@ int main(int argc, char **argv)
     int FD = open(path, O_RDONLY);
     if(FD == -1)
     {
-        perror("Eroare la deschiderea fisierului");
-        exit(-1);
-    }
+        printf("Eroare: Fișierul pentru comoară nu există: %s\n", path);
+        exit(0);
+    }   
+
     //
 
     printf("Treasure ID: %s\n\n", argv[2]);
