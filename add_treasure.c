@@ -10,19 +10,23 @@
 
 int main(int argc, char **argv)
 {
-    if (argc != 2) {
+    if (argc != 2) 
+    {
         perror("Numărul de argumente este incorect\n");
         exit(-1);
     }
 
+    // Verificarea existentei directorului
     struct stat st;
     if (stat(argv[1], &st) == -1)
-    {
+    {   
+        // Crearea directorului daca nu exista
         if(mkdir(argv[1], 0777) == -1)
         {
             perror("Eroare la crearea directorului.\n");
             exit(-1);
         }
+        //
     } 
     else 
     {
@@ -32,6 +36,7 @@ int main(int argc, char **argv)
             exit(-1);
         }
     }
+    //
 
 
     // Citirea in struct a fiecarui camp 

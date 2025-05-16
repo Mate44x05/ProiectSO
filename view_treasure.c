@@ -13,6 +13,7 @@ int main(int argc, char **argv)
         perror("Numar de argumente invalid");
         exit(-1);
     }
+
     // Crearea caii catre fisierul binar
     char path[80];
     snprintf(path, sizeof(path), "./%s/%s.bin", argv[1], argv[2]);
@@ -25,15 +26,13 @@ int main(int argc, char **argv)
         printf("Eroare: Fișierul pentru comoară nu există: %s\n", path);
         exit(0);
     }   
-
     //
 
     printf("Treasure ID: %s\n\n", argv[2]);
 
     // Citirea datelor din fisierul binar + afisarea fiecarei structuri
     struct treasure t;
-    ssize_t bytesRead;
-    while ((bytesRead = read(FD, &t, sizeof(t))) == sizeof(t))
+    while (read(FD, &t, sizeof(t)) == sizeof(t))
     {
         printf("User: %s\n", t.user);
         printf("Latitude: %f\n", t.latitude);
@@ -43,7 +42,7 @@ int main(int argc, char **argv)
     }
     //
 
-    // Crearea/deschiderea fisierului pentru log
+    // Deschiderea fisierului pentru log
     char log_path[128];
     snprintf(log_path, sizeof(log_path), "./%s/logged_hunt", argv[1]);
     int log = open(log_path, O_WRONLY | O_APPEND);

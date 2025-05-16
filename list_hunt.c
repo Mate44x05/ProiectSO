@@ -17,39 +17,39 @@ int main(int argc, char **argv)
         exit(-1);
     }
 
-// Tiparirea numelui hunt-ului
+    // Tiparirea numelui hunt-ului
     printf("\n\nHunt name: %s\n", argv[1]);
-//
+    //
 
-// Tiparirea informatiilor despre director
+    // Tiparirea informatiilor despre director
     struct stat fileStat;
-    // Verificarea existentei directorului
+        // Verificarea existentei directorului
     if (stat(argv[1], &fileStat) == -1) 
     {
         perror("Eroare la obtinerea informatiilor despre director");
         exit(-1);
     }
-    //
+        //
     int totalSize = 0;
-//
+    //
 
-// Listam treasure-urile din director impreuna cu informatiile despre acestea
+    // Listam treasure-urile din director impreuna cu informatiile despre acestea
     printf("Treasure list:\n");
 
     struct dirent *entry;
     char aux[32];
     snprintf(aux, sizeof(aux), "./%s", argv[1]);
     
-    // Deschiderea directorului pentru parcurgerea fiecarui treasure
+        // Deschiderea directorului pentru parcurgerea fiecarui treasure
     DIR *dir = opendir(aux);
 
     if (dir == NULL) {
         perror("Nu se poate deschide directorul");
         exit(-1);
     }
-    //
+        //
 
-    // Parcurgerea fiecarui fisier din director
+        // Parcurgerea fiecarui fisier din director
     while ((entry = readdir(dir)) != NULL) {
         if (strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0 && strcmp(entry->d_name, "logged_hunt") != 0)
         {
@@ -81,13 +81,15 @@ int main(int argc, char **argv)
             printf("Size: %ld\n", fileStat.st_size);
             printf("Last modified: %s\n", time);
             //
+        
         }
     }
+    //
 
     printf("\nEnd of list\n");
     printf("Total size: %d bytes\n", totalSize);
     
-    // Crearea/deschiderea fisierului pentru log
+    // Deschiderea fisierului pentru log
     char log_path[128];
     snprintf(log_path, sizeof(log_path), "./%s/logged_hunt", argv[1]);
     int log = open(log_path, O_WRONLY | O_APPEND);
