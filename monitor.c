@@ -39,8 +39,14 @@ void calculate_scores()
             strcmp(entry->d_name, ".vscode") != 0) 
         //
         {
+            // Crearea pipe-ului pentru a citi rezultatul
             int fd[2];
-            pipe(fd);
+            if(pipe(fd) == -1)
+            {
+                perror("Eroare la crearea pipe-ului");
+                exit(1);
+            }
+            //
 
             // Crearea procesului copil
             pid_t pid = fork();
@@ -106,8 +112,14 @@ void list_hunts()
             strcmp(entry->d_name, ".vscode") != 0) 
         //
         {
+            // Crearea pipe-ului pentru a citi rezultatul
             int fd[2];
-            pipe(fd);
+            if(pipe(fd) == -1)
+            {
+                perror("Eroare la crearea pipe-ului");
+                exit(1);
+            }
+            //
 
             // Crearea procesului copil
             pid_t pid = fork();
@@ -150,8 +162,16 @@ void list_hunts()
 
 void list_treasures(const char* hunt_name)
 {
+    dprintf(write_fd, "[monitor] Listare comori pentru hunt-ul %s...\n\n", hunt_name);
+    
+    // Crearea pipe-ului pentru a citi rezultatul
     int fd[2];
-    pipe(fd);
+    if(pipe(fd) == -1)
+    {
+        perror("Eroare la crearea pipe-ului");
+        exit(1);
+    }
+    //
 
     // Crearea procesului copil
     pid_t pid = fork();
@@ -189,8 +209,16 @@ void list_treasures(const char* hunt_name)
 
 void view_treasure(const char* hunt_name, const char* treasure_id)
 {
+    dprintf(write_fd, "[monitor] Vizualizare comoara %s din hunt-ul %s...\n\n", treasure_id, hunt_name);
+
+    // Crearea pipe-ului pentru a citi rezultatul
     int fd[2];
-    pipe(fd);
+    if(pipe(fd) == -1)
+    {
+        perror("Eroare la crearea pipe-ului");
+        exit(1);
+    }
+    //
 
     // Crearea procesului copil
     pid_t pid = fork();

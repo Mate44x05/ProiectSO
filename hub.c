@@ -199,6 +199,6 @@ int main()
         //
     }
     //
-
+    close(monitor_pipe_fd[0]);
     return 0;
 }

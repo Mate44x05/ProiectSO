@@ -92,7 +92,7 @@ int main(int argc, char* argv[])
     {
         printf("User: %s - Score: %d\n", users[i].user, users[i].score);
     }
-    printf("\n");
+    printf("\n\n");
     //
 
     // Deschiderea fisierului pentru log

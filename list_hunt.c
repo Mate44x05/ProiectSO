@@ -87,7 +87,7 @@ int main(int argc, char **argv)
     //
 
     printf("\nEnd of list\n");
-    printf("Total size: %d bytes\n", totalSize);
+    printf("Total size: %d bytes\n\n", totalSize);
     
     // Deschiderea fisierului pentru log
     char log_path[128];
